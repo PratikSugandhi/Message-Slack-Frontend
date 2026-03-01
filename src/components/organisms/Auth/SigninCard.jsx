@@ -6,7 +6,7 @@ import { Card, CardContent,CardDescription,CardHeader,CardTitle } from '@/compon
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 
-export const SigninCard = (
+export const SigninCard = ({
     signinForm,
     setSigninForm,
     onSigninFormSubmit,
@@ -14,6 +14,7 @@ export const SigninCard = (
     error,
     isSuccess,
     isPending
+}
 ) => {
 
     const navigate = useNavigate();

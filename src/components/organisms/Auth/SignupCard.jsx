@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { LucideLoader2, TriangleAlert } from 'lucide-react';
 import { FaCheck } from 'react-icons/fa';
-export const SignupCard = (
+export const SignupCard = ({
     signupForm, 
     setSignupForm, 
     validationError, 
@@ -14,6 +14,7 @@ export const SignupCard = (
     error,
     isPending,
     isSuccess
+}
 ) => {
     const navigate = useNavigate();
     
@@ -49,8 +50,8 @@ export const SignupCard = (
                 )}
             </CardHeader>
             <CardContent>
-                <form className='space-y-3'>
-                 <form className='space-y-3' onSubmit={onSignupFormSubmit}></form>
+                <form className='space-y-3' onSubmit={onSignupFormSubmit}>
+                 
                     <Input
                         placeholder="Email"
                         required
