@@ -24,7 +24,7 @@ export const Notfound = () => {
                         src="https://www.digitalmesh.com/blog/wp-content/uploads/2020/05/404-error.jpg" />
 
                     <Button 
-                        variant="outline"
+                        variant="destructive"
                         onClick={(() => navigate(-1))}
                         className="mt-4"
                     >
