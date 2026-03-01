@@ -7,17 +7,23 @@ import { SignupCard } from './components/organisms/Auth/SignupCard';
 import { Auth } from '@/pages/Auth/Auth';
 import { Route, Routes } from 'react-router-dom';
 import { Notfound } from '@/pages/NotFound/NotFound';
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SignupContainer } from './components/organisms/Auth/SignupContainer';
 function App() {
+  const queryClient = new QueryClient();
+
   const [count, setCount] = useState(0)
 
   return (
-    <Routes>
-      <Route path="/auth/signup" element={<Auth><SignupCard /></Auth>} />
-      <Route path="/auth/signin" element={<Auth><SigninCard /></Auth>} />
+    <QueryClientProvider client={queryClient}>
+      <Routes>
+          <Route path="/auth/signup" element={<Auth><SignupCard /></Auth>} />
+          <Route path="/auth/signin" element={<Auth><SigninCard /></Auth>} />
 
-      <Route path="/*" element={<Notfound />} />
-    </Routes>
+          <Route path="/*" element={<Notfound />} />
+      </Routes>
+    </QueryClientProvider>
+    
     
   )
 }
