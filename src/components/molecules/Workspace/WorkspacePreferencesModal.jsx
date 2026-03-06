@@ -35,7 +35,11 @@ export const WorkspacePreferencesModal = () => {
                                 Edit
                             </p>
                         </div>
-
+                         <p
+                            className='text-sm'
+                        >
+                            {initialValue}
+                        </p>
 
 
                     </div>
