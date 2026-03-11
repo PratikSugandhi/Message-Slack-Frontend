@@ -20,6 +20,8 @@ export const WorkspacePreferencesModal = () => {
     const [editOpen, setEditOpen] = useState(false);
 
     const { initialValue, openPreferences, setOpenPreferences, workspace } = useWorkspacePreferencesModal();
+    
+    
     const { deleteWorkspaceMutation } = useDeleteWorkspace(workspaceId);
     const { isPending, updateWorkspaceMutation } = useUpdateWorkspace(workspaceId);
     const { confirmation, ConfirmDialog } = useConfirm({ title: 'Do you want to delete the workspace?', message: 'This action cannot be undone.' });
@@ -170,7 +172,9 @@ export const WorkspacePreferencesModal = () => {
                         onClick={handleDelete}
                     >
                         <TrashIcon className='size-5' />
-                        <p>
+                        <p
+                            className='text-sm font-semibold'
+                        >
                             Delete Workspace
                         </p>
                     </button>

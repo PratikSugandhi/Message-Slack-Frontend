@@ -19,7 +19,11 @@ export const WorkspacePanelHeader = ({ workspace }) => {
     const isLoggedInUserAdminOfWorkspace = workspacemembers?.find(member => member.memberId === auth?.user?._id && member.role === 'admin');
 
     console.log(isLoggedInUserAdminOfWorkspace);
+    // const { setOpenPreferences, openPreferences } = useWorkspacePreferencesModal();
 
+    // useEffect(() => {
+    //     console.log('openPreferences is', openPreferences);
+    // }, [openPreferences]);
     const { setOpenPreferences, setInitialValue } = useWorkspacePreferencesModal();
     useEffect(() => {
         setWorkspace(workspace);
@@ -30,7 +34,7 @@ export const WorkspacePanelHeader = ({ workspace }) => {
             className='flex items-center justify-between px-4 h-[50px] gap-0.5'
         >
             <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+                {/* <DropdownMenuTrigger > 
                     <Button
                         variant='transparent'
                         className='font-semibold text-lg w-auto p-1.5 overflow-hidden'
@@ -40,6 +44,20 @@ export const WorkspacePanelHeader = ({ workspace }) => {
                         </span>
                         <ChevronDownIcon className='size-5 ml-1' />
                     </Button>
+                </DropdownMenuTrigger> */}
+
+                <DropdownMenuTrigger asChild>
+                    <div>
+                        <Button
+                            variant='transparent'
+                            className='font-semibold text-lg w-auto p-1.5 overflow-hidden flex items-center'
+                        >
+                            <span className='truncate'>
+                                {workspace?.name}
+                            </span>
+                            <ChevronDownIcon className='size-5 ml-1' />
+                        </Button>
+                    </div>
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent side='bottom' align='start' className='w-64'>
