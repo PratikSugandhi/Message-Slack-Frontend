@@ -3,12 +3,13 @@ import { fetchWorkspaceDetailsRequest } from '@/apis/workspaces';
 import { useAuth } from '@/hooks/context/useAuth';
 
 
-export const useGetWorkspaceById = (id) => {
+export const useGetWorkspaceById = (id, { enabled = true } = {}) => {
     const { auth } = useAuth();
     const { isFetching, isSuccess, error, data: workspace } = useQuery({
         queryFn: () => fetchWorkspaceDetailsRequest({ workspaceId: id, token: auth?.token }),
         queryKey: [`fetchWorkspaceById-${id}`],
-        staleTime: 10000
+        staleTime: 10000,
+        enabled: Boolean(id) && enabled
     });
 
     return {
