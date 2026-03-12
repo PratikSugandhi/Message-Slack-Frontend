@@ -6,6 +6,7 @@ import { Notfound } from '@/pages/Notfound/Notfound';
 import { ProtectedRoute } from './components/molecules/ProtectedRoute/ProtectedRoute';
 import { Home } from './pages/Home/Home';
 import { WorkspaceLayout } from './pages/Workspace/Layout';
+import { JoinPage } from './pages/Workspace/JoinPage';
 
 export const AppRoutes = () => {
     return (
@@ -20,6 +21,7 @@ export const AppRoutes = () => {
             element={<ProtectedRoute>Channel</ProtectedRoute>}
 
           />
+           <Route path="/workspaces/join/:workspaceId" element={<JoinPage />} />
           <Route path="/*" element={<Notfound />} />
         </Routes>
     );
