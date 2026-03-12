@@ -1,50 +1,173 @@
+// import { ChevronDownIcon, ListFilterIcon, SquarePenIcon } from 'lucide-react';
+// import { Button } from '@/components/ui/button';
+// import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+// import { useAuth } from '@/hooks/context/useAuth';
+// import { useWorkspacePreferencesModal } from '@/hooks/context/useWorkspacePreferencesModal';
+// import { useEffect } from 'react';
+
+// export const WorkspacePanelHeader = ({ workspace }) => {
+
+//     console.log('workspace is', workspace);
+//     const { setWorkspace } = useWorkspacePreferencesModal();
+
+//     const workspacemembers = workspace?.members;
+
+//     const { auth } = useAuth();
+
+//     console.log(auth);
+
+//     const isLoggedInUserAdminOfWorkspace = workspacemembers?.find(member => member.memberId === auth?.user?._id && member.role === 'admin');
+
+//     console.log(isLoggedInUserAdminOfWorkspace);
+//     const { setOpenPreferences, openPreferences } = useWorkspacePreferencesModal();
+
+//     useEffect(() => {
+//         console.log('openPreferences is', openPreferences);
+//     }, [openPreferences]);
+//     useEffect(() => {
+//         setWorkspace(workspace);
+//     }, []);
+
+//     return (
+//         <div
+//             className='flex items-center justify-between px-4 h-[50px] gap-0.5'
+//         >
+//             <DropdownMenu>
+//                 {/* <DropdownMenuTrigger > 
+//                     <Button
+//                         variant='transparent'
+//                         className='font-semibold text-lg w-auto p-1.5 overflow-hidden'
+//                     >
+//                         <span className='truncate'>
+//                             {workspace?.name}
+//                         </span>
+//                         <ChevronDownIcon className='size-5 ml-1' />
+//                     </Button>
+//                 </DropdownMenuTrigger> */}
+
+//                 <DropdownMenuTrigger asChild>
+//                     <div>
+//                         <Button
+//                             variant='transparent'
+//                             className='font-semibold text-lg w-auto p-1.5 overflow-hidden flex items-center'
+//                         >
+//                             <span className='truncate'>
+//                                 {workspace?.name}
+//                             </span>
+//                             <ChevronDownIcon className='size-5 ml-1' />
+//                         </Button>
+//                     </div>
+//                 </DropdownMenuTrigger>
+
+//                 <DropdownMenuContent side='bottom' align='start' className='w-64'>
+//                     <DropdownMenuItem>
+//                         <div
+//                             className='size-9 relative overflow-hidden text-white font-semibold text-xl rounded-md flex items-center justify-center mr-2 bg-[#616061]'
+//                         >
+//                             {workspace?.name.charAt(0).toUpperCase()}
+//                         </div>
+//                         <div className='flex flex-col items-start'>
+//                             <p className='font-bold'>
+//                                 {workspace?.name}
+//                             </p>
+//                             <p className='text-xs text-muted-foreground'>
+//                                 Active Workspace
+//                             </p>
+//                         </div>
+//                     </DropdownMenuItem>
+
+//                     {isLoggedInUserAdminOfWorkspace && (
+//                         <>
+//                             <DropdownMenuItem
+//                                 className='cursor-pointer py-2'
+//                                 onClick={() => {
+//                                     setInitialValue(workspace?.name);
+//                                     setOpenPreferences(true);
+//                                 }}
+//                             >
+//                                 Preferences
+//                             </DropdownMenuItem>
+//                             <DropdownMenuSeparator />
+//                             <DropdownMenuItem
+//                                 className='cursor-pointer py-2'
+//                             >
+//                                 Invite people to {workspace?.name}
+//                             </DropdownMenuItem>
+//                         </>
+//                     )}
+
+//                 </DropdownMenuContent>
+//             </DropdownMenu>
+
+//             <div
+//                 className='flex items-center gap-0.5'
+//             >
+//                 <Button
+//                     variant='transparent'
+//                     size='iconSm'
+//                 >
+//                     <ListFilterIcon className='size-5' />
+//                 </Button>
+
+//                 <Button
+//                     variant='transparent'
+//                     size='iconSm'
+//                 >
+//                     <SquarePenIcon className='size-5' />
+//                 </Button>
+//             </div>
+//         </div>
+//     );
+// };
+
+
 import { ChevronDownIcon, ListFilterIcon, SquarePenIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
+
 import { useAuth } from '@/hooks/context/useAuth';
 import { useWorkspacePreferencesModal } from '@/hooks/context/useWorkspacePreferencesModal';
 import { useEffect } from 'react';
 
 export const WorkspacePanelHeader = ({ workspace }) => {
 
-    console.log('workspace is', workspace);
-    const { setWorkspace } = useWorkspacePreferencesModal();
+    const { auth } = useAuth();
+
+    const { setWorkspace, setOpenPreferences } = useWorkspacePreferencesModal();
 
     const workspacemembers = workspace?.members;
 
-    const { auth } = useAuth();
+    // FIXED ADMIN CHECK
+    const isLoggedInUserAdminOfWorkspace = workspacemembers?.find((member) => {
 
-    console.log(auth);
+        if (!member.memberId) return false;
 
-    const isLoggedInUserAdminOfWorkspace = workspacemembers?.find(member => member.memberId === auth?.user?._id && member.role === 'admin');
+        if (typeof member.memberId === "string") {
+            return member.memberId === auth?.user?._id && member.role === "admin";
+        }
 
-    console.log(isLoggedInUserAdminOfWorkspace);
-    // const { setOpenPreferences, openPreferences } = useWorkspacePreferencesModal();
+        if (member.memberId?._id) {
+            return member.memberId._id === auth?.user?._id && member.role === "admin";
+        }
 
-    // useEffect(() => {
-    //     console.log('openPreferences is', openPreferences);
-    // }, [openPreferences]);
-    const { setOpenPreferences, setInitialValue } = useWorkspacePreferencesModal();
+        return member.memberId?.toString() === auth?.user?._id && member.role === "admin";
+    });
+
+    // FIXED DEPENDENCY
     useEffect(() => {
         setWorkspace(workspace);
-    }, []);
+    }, [workspace]);
 
     return (
-        <div
-            className='flex items-center justify-between px-4 h-[50px] gap-0.5'
-        >
+        <div className='flex items-center justify-between px-4 h-[50px] gap-0.5'>
+
             <DropdownMenu>
-                {/* <DropdownMenuTrigger > 
-                    <Button
-                        variant='transparent'
-                        className='font-semibold text-lg w-auto p-1.5 overflow-hidden'
-                    >
-                        <span className='truncate'>
-                            {workspace?.name}
-                        </span>
-                        <ChevronDownIcon className='size-5 ml-1' />
-                    </Button>
-                </DropdownMenuTrigger> */}
 
                 <DropdownMenuTrigger asChild>
                     <div>
@@ -55,22 +178,30 @@ export const WorkspacePanelHeader = ({ workspace }) => {
                             <span className='truncate'>
                                 {workspace?.name}
                             </span>
+
                             <ChevronDownIcon className='size-5 ml-1' />
                         </Button>
                     </div>
                 </DropdownMenuTrigger>
 
-                <DropdownMenuContent side='bottom' align='start' className='w-64'>
+                <DropdownMenuContent
+                    side='bottom'
+                    align='start'
+                    className='w-64'
+                >
+
                     <DropdownMenuItem>
                         <div
                             className='size-9 relative overflow-hidden text-white font-semibold text-xl rounded-md flex items-center justify-center mr-2 bg-[#616061]'
                         >
-                            {workspace?.name.charAt(0).toUpperCase()}
+                            {workspace?.name?.charAt(0)?.toUpperCase()}
                         </div>
+
                         <div className='flex flex-col items-start'>
                             <p className='font-bold'>
                                 {workspace?.name}
                             </p>
+
                             <p className='text-xs text-muted-foreground'>
                                 Active Workspace
                             </p>
@@ -82,13 +213,14 @@ export const WorkspacePanelHeader = ({ workspace }) => {
                             <DropdownMenuItem
                                 className='cursor-pointer py-2'
                                 onClick={() => {
-                                    setInitialValue(workspace?.name);
                                     setOpenPreferences(true);
                                 }}
                             >
                                 Preferences
                             </DropdownMenuItem>
+
                             <DropdownMenuSeparator />
+
                             <DropdownMenuItem
                                 className='cursor-pointer py-2'
                             >
@@ -98,11 +230,11 @@ export const WorkspacePanelHeader = ({ workspace }) => {
                     )}
 
                 </DropdownMenuContent>
+
             </DropdownMenu>
 
-            <div
-                className='flex items-center gap-0.5'
-            >
+            <div className='flex items-center gap-0.5'>
+
                 <Button
                     variant='transparent'
                     size='iconSm'
@@ -116,7 +248,9 @@ export const WorkspacePanelHeader = ({ workspace }) => {
                 >
                     <SquarePenIcon className='size-5' />
                 </Button>
+
             </div>
+
         </div>
     );
 };
