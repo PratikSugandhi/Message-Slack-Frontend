@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { Avatar } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { useCurrentWorkspace } from '@/hooks/apis/workspaces/useCurrentWorkspace';
+import { useCurrentWorkspace } from '@/hooks/context/useCurrentWorkspace';
 import { cn } from '@/lib/utils';
 
 

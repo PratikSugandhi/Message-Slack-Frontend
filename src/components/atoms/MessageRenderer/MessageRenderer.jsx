@@ -11,7 +11,6 @@ export const MessageRenderer = ({ value }) => {
         if(!rendererRef.current) return;
 
         console.log('Value: ', value);
-
         const quill = new Quill(document.createElement('div'), {
             theme: 'snow'
         });
@@ -22,8 +21,7 @@ export const MessageRenderer = ({ value }) => {
         console.log('Content: ', quill.root.innerHTML);
         const isContentEmpty = quill.getText().trim().length === 0;
         setIsEmpty(isContentEmpty);
-        rendererRef.current.innerHTML = quill.root.innerHTML;  
-
+        rendererRef.current.innerHTML = quill.root.innerHTML;
     }, [value]);
 
     if(isEmpty) return null;
