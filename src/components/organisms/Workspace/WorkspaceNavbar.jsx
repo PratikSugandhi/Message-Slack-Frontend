@@ -1,14 +1,28 @@
 import { InfoIcon, LucideLoader2, SearchIcon } from 'lucide-react';
-import { useParams } from 'react-router-dom';
-
+import { useParams , useNavigate} from 'react-router-dom';
+import { useAuth } from '@/hooks/context/useAuth';
 import { Button } from '@/components/ui/button';
 import { useGetWorkspaceById } from '@/hooks/apis/workspaces/useGetWorkspaceById';
+import { useEffect } from 'react';
 
 export const WorkspaceNavbar = () => {
 
     const { workspaceId } = useParams();
 
-    const { isFetching, workspace } = useGetWorkspaceById(workspaceId);
+    const navigate = useNavigate();
+    const { logout } = useAuth();
+    const { isFetching, workspace, error, isSuccess } = useGetWorkspaceById(workspaceId);
+
+    useEffect(() => {
+        
+        if(!isFetching && !isSuccess && error) {
+            console.log('Error fetching workspace', error.status);
+            if(error.status === 403) {
+                logout();
+                navigate('/auth/signin');
+            }
+        }
+    }, [ isSuccess, error, isFetching]);
 
     if(isFetching) {
         return <LucideLoader2 className="animate-spin ml-2" />;

@@ -138,6 +138,6 @@ export const joinWorkspaceRequest = async ({ workspaceId, joinCode, token }) => 
         return response?.data?.data;
     } catch(error) {
         console.log('Error in joining workspace request', error);
-        throw error.response.data;
+        throw error.response;
     }
 };

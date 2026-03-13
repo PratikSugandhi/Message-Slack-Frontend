@@ -88,7 +88,7 @@ export const Editor = ({
             >
                 <div className='h-full ql-custom' ref={containerRef} />
                 <div className='flex px-2 pb-2 z-[5]'>
-                    <Hint label={!isToolbarVisible ? 'Show toolbar' : 'Hide toolbar'} side='bottom' align='center'>
+                    <Hint label={!isToolbarVisible ? 'Hide toolbar' : 'Show toolbar'} side='bottom' align='center'>
                         <Button
                             size="iconSm"
                             variant="ghost"
