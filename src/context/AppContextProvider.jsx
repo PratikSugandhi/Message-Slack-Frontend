@@ -4,8 +4,10 @@ import { AuthContextProvider } from './AuthContext';
 import { CreateWorkspaceContextProvider } from './CreateWorkspaceContext';
 import { CreateChannelContextProvider } from './CreateChannelContext';
 import { WorkspaceContextProvider } from '@/hooks/context/WorkspaceContext';
+import { SocketContextProvider } from './SocketContext';
 
 export const AppContextProvider = combineContext(
+    SocketContextProvider,
     AuthContextProvider,
     WorkspaceContextProvider,
     CreateWorkspaceContextProvider,
