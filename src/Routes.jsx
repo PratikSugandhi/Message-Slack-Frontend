@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { SigninContainer } from '@/components/organisms/Auth/SigninContainer';
 import { SignupContainer } from '@/components/organisms/Auth/SignupContainer';
 import { Auth } from '@/pages/Auth/Auth';
-import { Notfound } from '@/pages/Notfound/Notfound';
+import { NotFound } from '@/pages/NotFound/NotFound';
 import { Landing } from '@/pages/Landing/Landing';
 import { ProtectedRoute } from './components/molecules/ProtectedRoute/ProtectedRoute';
 import { Home } from './pages/Home/Home';
@@ -27,7 +27,7 @@ export const AppRoutes = () => {
           />
           <Route path="/makepayment" element={<ProtectedRoute><Payments /></ProtectedRoute>} />
            <Route path="/workspaces/join/:workspaceId" element={<JoinPage />} />
-          <Route path="/*" element={<Notfound />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
     );
 };
