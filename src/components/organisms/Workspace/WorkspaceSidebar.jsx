@@ -6,7 +6,7 @@ import { WorkspaceSwitcher } from '@/components/organisms/Workspace/WorkspaceSwi
 export const WorkspaceSidebar = () => {
     return (
         <aside
-            className="w-[70px] h-full bg-slack-dark flex flex-col gap-y-4 items-center pt-[10px] pb-[5px]"
+            className="w-[70px] h-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 flex flex-col gap-y-4 items-center pt-[10px] pb-[5px] border-r border-slate-800"
         >
             <WorkspaceSwitcher />
             <SidebarButton 

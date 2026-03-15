@@ -94,6 +94,8 @@
 
 .ql-renderer {
   padding: 0 !important;
+  /* Ensure rendered messages are visible on dark backgrounds */
+  color: #f9fafb !important; /* near-white */
 }
 
 .ql-editor:before {

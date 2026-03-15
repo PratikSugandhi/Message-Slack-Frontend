@@ -3,7 +3,7 @@ import { Loader2Icon, TriangleAlertIcon } from 'lucide-react';
 import { ChatInput } from '@/components/molecules/ChatInput/ChatInput';
 import { useGetChannelById } from '@/hooks/apis/channels/useGetChannelById';
 import { ChannelHeader } from '@/components/molecules/Channel/ChannelHeader';
-import { useEffect,useRef } from 'react';
+import { useEffect,useRef, useState } from 'react';
 import { useSocket } from '@/hooks/context/useSocket';
 import { useQueryClient } from '@tanstack/react-query';
 import { Message } from '@/components/molecules/Message/Message';
@@ -21,6 +21,7 @@ export const Channel = () => {
      const { messages, isSuccess } = useGetChannelMessages(channelId);
 
      const messageContainerListRef = useRef(null);
+     const [replyingTo, setReplyingTo] = useState(null);
 
     useEffect(() => {
         if(messageContainerListRef.current) {
@@ -66,21 +67,30 @@ export const Channel = () => {
     }
 
     return (
-        <div className='flex flex-col h-full'>
+        <div className='flex flex-col h-full bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950'>
             <ChannelHeader name={channelDetails?.name} />
 
             {/* We need to make sure that below div is scrollable for the messages */}
             <div
                 ref={messageContainerListRef}
-                className='flex-5 overflow-y-auto p-5 gap-y-2'
+                className='flex-5 overflow-y-auto px-4 py-4 gap-y-3'
             >
                 {messageList?.map((message) => {
-                    return <Message key={message._id} body={message.body} authorImage={message.senderId?.avatar} authorName={message.senderId?.username} createdAt={message.createdAt}   />;
+                    return (
+                        <Message
+                            key={message._id}
+                            body={message.body}
+                            authorImage={message.senderId?.avatar}
+                            authorName={message.senderId?.username}
+                            createdAt={message.createdAt}
+                            onReply={setReplyingTo}
+                        />
+                    );
                 })}   
             </div>  
             
             <div className='flex-1' />
-            <ChatInput />
+            <ChatInput replyingTo={replyingTo} onClearReply={() => setReplyingTo(null)} />
         </div>
     );
 };

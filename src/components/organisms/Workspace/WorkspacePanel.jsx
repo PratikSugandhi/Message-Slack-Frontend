@@ -38,7 +38,7 @@ export const WorkspacePanel = () => {
 
     return (
         <div
-            className="flex flex-col h-full bg-slack-medium"
+            className="flex flex-col h-full bg-slate-900/80 border-r border-slate-800"
         >
             <WorkspacePanelHeader workspace={workspace} />
             <div

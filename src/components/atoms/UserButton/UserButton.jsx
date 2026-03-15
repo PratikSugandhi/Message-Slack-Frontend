@@ -23,7 +23,7 @@ export const UserButton = () => {
             title: 'Successfully signed out',
             type: 'success'
         });
-        navigate('/auth/signin');
+        navigate('/');
 
     }
 
